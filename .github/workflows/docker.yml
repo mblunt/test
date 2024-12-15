@@ -19,7 +19,7 @@ jobs:
       # Set up Docker Compose
       - name: Run Docker Compose
         run: |
-          docker-compose up -d
+          docker compose up -d
 
       # Test the service
       - name: Test Docker Compose Service
