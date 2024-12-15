@@ -8,24 +8,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  test-container:
     runs-on: ubuntu-latest
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      # Checkout code
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Pull Hello World Docker Image
+      # Set up Docker Compose
+      - name: Run Docker Compose
         run: |
-          docker pull hello-world
+          docker-compose up -d
 
-      - name: Run Hello World Docker Container
-        run: |
-          docker run -d --name hello-world-container hello-world
-        
-      - name: Test Hello World Container
+      # Test the service
+      - name: Test Docker Compose Service
         run: |
           sleep 5
-          docker logs hello-world-container
+          curl http://localhost:8080
 
